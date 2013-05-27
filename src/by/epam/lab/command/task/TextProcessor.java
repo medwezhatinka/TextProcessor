@@ -5,8 +5,8 @@
 package by.epam.lab.command.task;
 
 import by.epam.lab.logic.parser.ParseManager;
-import by.epam.lab.logic.sorter.SortWordsByFirstLetter;
-import by.epam.lab.logic.util.Helper;
+import by.epam.lab.logic.sorter.FirstLetterComparator;
+import by.epam.lab.logic.sorter.SortWords;
 import by.epam.lab.model.entity.ElementSentence;
 import by.epam.lab.model.entity.Sentence;
 import by.epam.lab.model.entity.Word;
@@ -35,35 +35,35 @@ public class TextProcessor {
         Word last;
 
         for (Sentence sentence : sentences) {
-            List<ElementSentence> e = new ArrayList<>();
-            first = (Word) sentence.getElementsSentence().next();
-            last = (Word) Helper.getLastWord(sentence.getElementsSentence());
+            List<ElementSentence> newElementSentences = new ArrayList<>();
+            first = sentence.getFirstWord();
+            last = sentence.getLastWord();
             int i = 0;
-            int lastindex = Helper.getLastWordIndexW(last, sentence.getElementsSentence());
+            int lastindex = sentence.getLastWordIndex(last);
 
             for (Iterator<ElementSentence> it = sentence.getElementsSentence(); it.hasNext();) {
-                ElementSentence els = it.next();
+                ElementSentence elementSentence = it.next();
 
                 if (i == 0) {
-                    els = last;
+                    elementSentence = last;
                 } else if (i == lastindex) {
-                    els = first;
+                    elementSentence = first;
 
                 }
                 i++;
-                e.add(els);
+                newElementSentences.add(elementSentence);
             }
-            newSentences.add(new Sentence(e));
+            newSentences.add(new Sentence(newElementSentences));
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
         for (Sentence sentence : newSentences) {
-            sb.append(sentence.getValue());
-            sb.append(" \n");
+            result.append(sentence.getValue());
+            result.append(" \n");
         }
 
-        return String.valueOf(sb);
+        return String.valueOf(result);
     }
 
     /**
@@ -74,39 +74,39 @@ public class TextProcessor {
      * @return text without cut words as String
      */
     public static String cutWordsWithLength(String allText, int length) {
-        StringBuilder result = new StringBuilder();
+       
         Word word;
 
         List<Sentence> sentences = ParseManager.getInstance(allText).getSentences();
         List<Sentence> newSentences = new ArrayList<>();
 
         for (Sentence sentence : sentences) {
-            List<ElementSentence> e = new ArrayList<>();
+            List<ElementSentence> elementSentences = new ArrayList<>();
 
             for (Iterator<ElementSentence> it = sentence.getElementsSentence(); it.hasNext();) {
-                ElementSentence els = it.next();
+                ElementSentence elementSentence = it.next();
 
-                if (els instanceof Word) {
-                    word = (Word) els;
+                if (elementSentence instanceof Word) {
+                    word = (Word) elementSentence;
 
                     if (word.length() == length && word.getWord().next().isConsonant()) {
 
                         continue;
                     }
                 }
-                e.add(els);
+                elementSentences.add(elementSentence);
             }
-            newSentences.add(new Sentence(e));
+            newSentences.add(new Sentence(elementSentences));
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
         for (Sentence sentence : newSentences) {
-            sb.append(sentence.getValue());
-            sb.append(" \n");
+            result.append(sentence.getValue());
+            result.append(" \n");
         }
 
-        return String.valueOf(sb);
+        return String.valueOf(result);
     
     }
      /**
@@ -120,14 +120,14 @@ public class TextProcessor {
     public static String sortedWords(String allText) {
 
         List<Word> words = ParseManager.getInstance(allText).getWords();
-        List<Word> wordList = SortWordsByFirstLetter.sort(words);
+        List<Word> wordList = SortWords.sort(words, new FirstLetterComparator());
 
         StringBuilder result = new StringBuilder();
         Iterator<Word> it = wordList.iterator();
-        Word next;
+        Word nextWord;
 
         if (it.hasNext()) {
-            next = it.next();
+            nextWord = it.next();
 
         }
 
@@ -136,13 +136,13 @@ public class TextProcessor {
             result.append("\n");
 
             if (it.hasNext()) {
-                next = it.next();
+                nextWord = it.next();
 
                 if (!word.getWord()
                         .next()
                         .getSymbol()
                         .toLowerCase()
-                        .equals(next.getWord()
+                        .equals(nextWord.getWord()
                         .next()
                         .getSymbol()
                         .toLowerCase())) {

@@ -37,7 +37,7 @@ public class TaskManager {
         String allText;
         allText = fileReader.readAllText();
 
-        String end = "";
+        String end = TaskConstants.EMPTY_STRING;
         while (!end.equalsIgnoreCase(TaskConstants.INPUT_END)) {
 
             System.out.println("To sort words by first letter in alphabetic order please  enter 1\n"

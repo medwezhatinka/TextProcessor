@@ -41,7 +41,41 @@ public class Sentence implements ElementText {
         }
         return words;
     }
+    public  Word getLastWord() {
+          Word word = null;
+        for (ElementSentence elementSentence : elementsSentence) {
+            if (elementSentence instanceof Word) {
+                word = (Word) elementSentence;
+            }
+        }
+        return word;
+    }
+     public  Word getFirstWord() {
+         Word firstWord=null;
+         for (Iterator<ElementSentence> iteratorElementSentence = elementsSentence.iterator(); iteratorElementSentence.hasNext();) {
+             ElementSentence elementSentence = iteratorElementSentence.next();
+             if (elementSentence instanceof Word) {
+                 firstWord = (Word) elementSentence;
+                 break;
+             }
+         }
+        return firstWord;
+    }
 
+     public int getLastWordIndex(Word word) {
+        ElementSentence elementSentence;
+        int lastWordIndex = 0;
+        int index = 0;
+        for (Iterator<ElementSentence> it = elementsSentence.iterator(); it.hasNext();) {
+            elementSentence = it.next();
+
+            if (word.equals(elementSentence)) {
+                lastWordIndex = index;
+            }
+            index++;
+        }
+        return lastWordIndex;
+    }
     @Override
     public int hashCode() {
         int hash = 7;

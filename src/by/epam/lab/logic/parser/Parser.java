@@ -48,7 +48,7 @@ public class Parser {
             // find sentences without code
             String[] sentence = patternCode.split(textElement);
             // iterator of code collection
-            Iterator<String> it = code.iterator();
+            Iterator<String> codeIterator = code.iterator();
             //collection of sentence elements (Word and Punctuation)
             List<ElementSentence> elementsSentence = new ArrayList<>();
             //create instance of Sentence and Code 
@@ -68,30 +68,30 @@ public class Parser {
                         //find symbols
                         List<String> symbolsList = parseByPattern(word[j], patternSymbol);
                         //create instance of Symbol
-                        for (String simbol1 : symbolsList) {
-                            Symbol s = new Symbol(simbol1);
-                            symbols.add(s);
+                        for (String string : symbolsList) {
+                            Symbol symbol = new Symbol(string);
+                            symbols.add(symbol);
                         }
                         //create and add Word from collection of Symbol to Sentence
-                        ElementSentence se = new Word(symbols);
-                        elementsSentence.add(se);
+                        ElementSentence elementSentenceWord = new Word(symbols);
+                        elementsSentence.add(elementSentenceWord);
 
                         Iterator<String> itpunct = punctuations.iterator();
                         //create Punctuation and add to Sentence
                         if (itpunct.hasNext()) {
-                            ElementSentence p = new Punctuation(itpunct.next());
-                            elementsSentence.add(p);
+                            ElementSentence elementSentencePunctuation = new Punctuation(itpunct.next());
+                            elementsSentence.add(elementSentencePunctuation);
                         }
                     }
                 }
 
                 //Create Sentence from Words and Punctuations and add to result text
-                ElementText s = new Sentence(elementsSentence);
-                elementsText.add(s);
+                ElementText elementTextSentence = new Sentence(elementsSentence);
+                elementsText.add(elementTextSentence);
                 //Create Code and add to result text
-                if (it.hasNext()) {
-                    ElementText c = new Code(it.next());
-                    elementsText.add(c);
+                if (codeIterator.hasNext()) {
+                    ElementText elementTextCode = new Code(codeIterator.next());
+                    elementsText.add(elementTextCode);
                 }
             }
 

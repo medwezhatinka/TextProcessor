@@ -31,7 +31,11 @@ public class Sentence implements ElementText {
             this.elementsSentence = elementsSentence;
         }
     }
-
+/**
+ * Return collections of Word instance from ElementSentence collection
+ * 
+ * @return  collection of Word instance
+ */
     public List<Word> findWords() {
         List<Word> words = new ArrayList<>();
         for (ElementSentence elementSentence : elementsSentence) {
@@ -41,6 +45,11 @@ public class Sentence implements ElementText {
         }
         return words;
     }
+    /**
+     * Find last Word instance in ElementSentence collection
+     * 
+     * @return last Word instance from collection of ElementSentence
+     */
     public  Word getLastWord() {
           Word word = null;
         for (ElementSentence elementSentence : elementsSentence) {
@@ -50,6 +59,11 @@ public class Sentence implements ElementText {
         }
         return word;
     }
+    /**
+     * Find first  Word instance in ElementSentence collection
+     * 
+     * @return first Word instance from collection of ElementSentence
+     */
      public  Word getFirstWord() {
          Word firstWord=null;
          for (Iterator<ElementSentence> iteratorElementSentence = elementsSentence.iterator(); iteratorElementSentence.hasNext();) {
@@ -61,7 +75,12 @@ public class Sentence implements ElementText {
          }
         return firstWord;
     }
-
+/**
+ * Find last index of specified word in collection of ElementSentence
+ * 
+ * @param word Word instance to find in collection
+ * @return  last index of specified Word instance in collection of ElementSentence
+ */
      public int getLastWordIndex(Word word) {
         ElementSentence elementSentence;
         int lastWordIndex = 0;

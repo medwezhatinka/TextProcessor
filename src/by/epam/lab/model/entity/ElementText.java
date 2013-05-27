@@ -10,5 +10,10 @@ package by.epam.lab.model.entity;
  */
 public interface ElementText {
 
+     /**
+     *Return ElementText as string value
+     * 
+     * @return value of ElementText instance as String
+     */
     public  String getValue();
 }

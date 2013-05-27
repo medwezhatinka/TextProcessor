@@ -31,7 +31,11 @@ public class Text {
         }
 
     }
-
+/**
+ * Find sentences in ElementText collection
+ * 
+ * @return collection of all Sentence from ElementText collection
+ */
     public List<Sentence> findSentences() {
         List<Sentence> se = new ArrayList<>();
         for (ElementText elementText : text) {

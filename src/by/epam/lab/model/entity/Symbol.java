@@ -5,6 +5,7 @@
 package by.epam.lab.model.entity;
 
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -28,9 +29,16 @@ public class Symbol {
         }
 
     }
-
+/**
+ * 
+ * @return 
+ */
     public boolean isConsonant() {
-        if (symbol.matches("[AaEeYyUuIiOoЕеАаОоЭэЯяЮюЁёы]")) {
+       ResourceBundle rb = ResourceBundle.getBundle("properties.regexp");
+        String value = rb.getString("regexp.consonant");
+        
+			
+        if (symbol.matches(value)) {
             return false;
         }
         return true;

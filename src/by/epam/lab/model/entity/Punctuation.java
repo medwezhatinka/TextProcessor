@@ -5,6 +5,7 @@
 package by.epam.lab.model.entity;
 
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -23,10 +24,11 @@ public class Punctuation implements ElementSentence {
     }
 
     public void setPunctuation(String punctuation) {
-        if (!punctuation.isEmpty() && punctuation != null) {
+       ResourceBundle rb = ResourceBundle.getBundle("properties.regexp");
+        String value = rb.getString("regexp.punctuation");
+           if (punctuation != null && punctuation.matches(value)) {
             this.punctuation = punctuation;
         }
-
     }
 
     @Override

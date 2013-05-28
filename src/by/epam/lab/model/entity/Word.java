@@ -4,6 +4,7 @@
  */
 package by.epam.lab.model.entity;
 
+import by.epam.lab.runner.TaskConstants;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +22,11 @@ public class Word implements ElementSentence {
     }
 
     public Iterator<Symbol> getWord() {
-        return word.iterator();
+        if (word != null) {
+            return word.iterator();
+        } else {
+            return null;
+        }
     }
 
     public void setWord(List<Symbol> word) {
@@ -34,15 +39,27 @@ public class Word implements ElementSentence {
     @Override
     public String getValue() {
         StringBuilder result = new StringBuilder();
-        for (Symbol symbol : word) {
-            result.append(symbol.getSymbol());
+        if (word != null) {
 
+            for (Symbol symbol : word) {
+                result.append(symbol.getSymbol());
+            }
         }
         return String.valueOf(result);
     }
 
+    /**
+     * Length of Word
+     *
+     * @return count of symbols in word
+     */
     public int length() {
-        return word.size();
+        if (word != null) {
+            return word.size();
+        } else {
+            return 0;
+        }
+
     }
 
     @Override

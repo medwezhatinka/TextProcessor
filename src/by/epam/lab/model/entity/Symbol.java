@@ -24,7 +24,9 @@ public class Symbol {
     }
 
     public void setSymbol(String symbol) {
-        if (symbol != null && !symbol.trim().isEmpty()) {
+         ResourceBundle rb = ResourceBundle.getBundle("properties.regexp");
+        String value = rb.getString("regexp.symbol");
+           if (symbol != null && symbol.matches(value)) {
             this.symbol = symbol;
         }
 
@@ -35,13 +37,18 @@ public class Symbol {
  */
     public boolean isConsonant() {
        ResourceBundle rb = ResourceBundle.getBundle("properties.regexp");
-        String value = rb.getString("regexp.consonant");
-        
-			
-        if (symbol.matches(value)) {
-            return false;
+        String value = rb.getString("regexp.vowel");
+        if (symbol==null) {
+            return  false;
         }
-        return true;
+          else   if (symbol.matches(value)) {
+          
+              return false;
+        }else{
+            
+              return true;
+          }
+      
     }
 
     @Override

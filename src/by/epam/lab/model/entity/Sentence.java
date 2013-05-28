@@ -23,7 +23,12 @@ public class Sentence implements ElementText {
     }
 
     public Iterator<ElementSentence> getElementsSentence() {
-        return elementsSentence.iterator();
+        if (elementsSentence != null) {
+            return elementsSentence.iterator();
+        } else {
+            return null;
+        }
+
     }
 
     public void setElementsSentence(List<ElementSentence> elementsSentence) {
@@ -31,70 +36,94 @@ public class Sentence implements ElementText {
             this.elementsSentence = elementsSentence;
         }
     }
-/**
- * Return collections of Word instance from ElementSentence collection
- * 
- * @return  collection of Word instance
- */
+
+    /**
+     * Return collections of Word instance from ElementSentence collection
+     *
+     * @return collection of Word instance
+     */
     public List<Word> findWords() {
-        List<Word> words = new ArrayList<>();
-        for (ElementSentence elementSentence : elementsSentence) {
-            if (elementSentence instanceof Word) {
-                words.add((Word) elementSentence);
+        if (elementsSentence != null) {
+            List<Word> words = new ArrayList<>();
+            for (ElementSentence elementSentence : elementsSentence) {
+                if (elementSentence instanceof Word) {
+                    words.add((Word) elementSentence);
+                }
             }
+            return words;
+        } else {
+            return null;
         }
-        return words;
+
     }
+
     /**
      * Find last Word instance in ElementSentence collection
-     * 
+     *
      * @return last Word instance from collection of ElementSentence
      */
-    public  Word getLastWord() {
-          Word word = null;
-        for (ElementSentence elementSentence : elementsSentence) {
-            if (elementSentence instanceof Word) {
-                word = (Word) elementSentence;
+    public Word getLastWord() {
+        if (elementsSentence != null) {
+            Word word = null;
+            for (ElementSentence elementSentence : elementsSentence) {
+                if (elementSentence instanceof Word) {
+                    word = (Word) elementSentence;
+                }
             }
+            return word;
+        } else {
+            return null;
         }
-        return word;
     }
+
     /**
-     * Find first  Word instance in ElementSentence collection
-     * 
+     * Find first Word instance in ElementSentence collection
+     *
      * @return first Word instance from collection of ElementSentence
      */
-     public  Word getFirstWord() {
-         Word firstWord=null;
-         for (Iterator<ElementSentence> iteratorElementSentence = elementsSentence.iterator(); iteratorElementSentence.hasNext();) {
-             ElementSentence elementSentence = iteratorElementSentence.next();
-             if (elementSentence instanceof Word) {
-                 firstWord = (Word) elementSentence;
-                 break;
-             }
-         }
-        return firstWord;
-    }
-/**
- * Find last index of specified word in collection of ElementSentence
- * 
- * @param word Word instance to find in collection
- * @return  last index of specified Word instance in collection of ElementSentence
- */
-     public int getLastWordIndex(Word word) {
-        ElementSentence elementSentence;
-        int lastWordIndex = 0;
-        int index = 0;
-        for (Iterator<ElementSentence> it = elementsSentence.iterator(); it.hasNext();) {
-            elementSentence = it.next();
-
-            if (word.equals(elementSentence)) {
-                lastWordIndex = index;
+    public Word getFirstWord() {
+        if (elementsSentence != null) {
+            Word firstWord = null;
+            for (Iterator<ElementSentence> iteratorElementSentence = elementsSentence.iterator(); iteratorElementSentence.hasNext();) {
+                ElementSentence elementSentence = iteratorElementSentence.next();
+                if (elementSentence instanceof Word) {
+                    firstWord = (Word) elementSentence;
+                    break;
+                }
             }
-            index++;
+            return firstWord;
+        } else {
+            return null;
         }
-        return lastWordIndex;
+
     }
+
+    /**
+     * Find last index of specified word in collection of ElementSentence
+     *
+     * @param word Word instance to find in collection
+     * @return last index of specified Word instance in collection of
+     * ElementSentence
+     */
+    public int getLastWordIndex(Word word) {
+        if (elementsSentence != null) {
+            ElementSentence elementSentence;
+            int lastWordIndex = 0;
+            int index = 0;
+            for (Iterator<ElementSentence> it = elementsSentence.iterator(); it.hasNext();) {
+                elementSentence = it.next();
+
+                if (word.equals(elementSentence)) {
+                    lastWordIndex = index;
+                }
+                index++;
+            }
+            return lastWordIndex;
+        } else {
+            return -1;
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
